@@ -1,0 +1,67 @@
+//MAIN CONTAINER
+.container__main {
+  padding: 1rem 1rem;
+}
+
+//CONATINER SEARCH
+.container__search {
+  height: 4rem;
+  width: 100%;
+  //   background-color: midnightblue;
+  position: relative;
+}
+
+//FORM ELEMENT
+.form {
+  display: flex;
+  height: 4rem;
+  width: 100%;
+  justify-content: center;
+  &__input {
+    font-family: inherit;
+    font-size: 1.6rem;
+    padding: 0.7rem 2rem;
+    text-transform: uppercase;
+    border: none;
+    width: 30%;
+    background-color: var(--color-primary);
+    border-radius: 100px;
+    transition: all 0.3s;
+
+    &:focus {
+      outline: none;
+      width: 60%;
+      height: 5rem;
+      background-color: var(--color-grey);
+      color: whitesmoke;
+
+      position: absolute;
+      transform: translateY(40vh);
+
+      &::-webkit-input-placeholder {
+        color: whitesmoke;
+      }
+    }
+  }
+}
+
+//IMAGE CONTAINER
+.image {
+  &__container {
+    margin: 2rem;
+  }
+
+  //IMAGE LIST
+
+  &-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(25rem, 1fr));
+    grid-gap: 0 1rem;
+    grid-auto-rows: 1rem;
+
+    img {
+      width: 100%;
+      grid-row-end: span 2;
+    }
+  }
+}
