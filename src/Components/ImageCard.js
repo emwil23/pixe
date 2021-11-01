@@ -1,5 +1,7 @@
 import React from 'react';
 
+// import sprite from '../img/sprite.svg';
+
 class ImageCard extends React.Component {
   constructor(props) {
     super(props);
@@ -25,8 +27,18 @@ class ImageCard extends React.Component {
     const { discription, urls } = this.props.image;
 
     return (
-      <div style={{ gridRowEnd: `span ${this.state.span}` }}>
-        <img ref={this.imageRef} alt={discription} src={urls.small} />
+      <div
+        style={{ gridRowEnd: `span ${this.state.span}`, position: 'relative' }}
+      >
+        <img
+          ref={this.imageRef}
+          alt={discription}
+          src={urls.small}
+          className='image-card'
+        />
+        {/* <svg className='image-card--like'>
+          <use xlinkHref={sprite + '#icon-like-love-streamline'} />
+        </svg> */}
       </div>
     );
   }

@@ -7,8 +7,106 @@
 .container__search {
   height: 4rem;
   width: 100%;
+  padding-bottom: 5rem;
   //   background-color: midnightblue;
   position: relative;
+  display: flex;
+  z-index: 10;
+}
+
+//DEV container
+.dev {
+  &__background {
+    width: 2.5rem;
+    height: 2.5rem;
+    position: fixed;
+    top: 1.7rem;
+    right: 4rem;
+    border-radius: 10rem;
+    background-image: radial-gradient(
+      var(--color-light-purple),
+      var(--color-dark-purple)
+    );
+    z-index: 13;
+    transition: transform 0.8s cubic-bezier(0.86, 0, 0.07, 1);
+    // transform: scale(150);
+  }
+
+  &--icon {
+    width: 4.2rem;
+    height: 4.2rem;
+    border-radius: 50%;
+    transition: all 0.3s;
+    position: fixed;
+    top: 1rem;
+    right: 3rem;
+    z-index: 15;
+    border: 1px solid white;
+    // display: none;
+
+    &:hover {
+      transform: scale(1.2);
+      cursor: pointer;
+    }
+  }
+
+  &__nav {
+    height: 100vh;
+    width: 100vw;
+    position: fixed;
+    top: 0;
+    right: 0;
+    z-index: 14;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    opacity: 0;
+    visibility: hidden;
+    transition: ease-in-out 0.8s;
+    //Main container
+    &--1 {
+      margin-left: 20rem;
+      &-title {
+        font-family: inherit;
+        font-size: 5rem;
+        font-style: italic;
+      }
+      &-sub {
+        font-family: inherit;
+        font-size: 1.6rem;
+      }
+    }
+
+    //Secondary Conatiner
+    &--2 {
+      margin-left: auto;
+      margin-right: 30rem;
+
+      &-icon__git {
+        height: 3rem;
+        width: 3rem;
+        margin-right: 20rem;
+        transition: all 0.3s;
+        cursor: pointer;
+
+        &:hover {
+          transform: scale(1.2);
+        }
+      }
+
+      &-icon__insta {
+        height: 3rem;
+        width: 3rem;
+        transition: all 0.3s;
+        cursor: pointer;
+
+        &:hover {
+          transform: scale(1.2);
+        }
+      }
+    }
+  }
 }
 
 //FORM ELEMENT
@@ -23,6 +121,7 @@
     padding: 0.7rem 2rem;
     text-transform: uppercase;
     border: none;
+    border: 2px solid var(--color-light-purple);
     width: 30%;
     background-color: var(--color-primary);
     border-radius: 100px;
@@ -30,6 +129,7 @@
 
     &:focus {
       outline: none;
+      border: none;
       width: 60%;
       height: 5rem;
       background-color: var(--color-grey);
@@ -49,6 +149,7 @@
 .image {
   &__container {
     margin: 2rem;
+    margin-top: 4rem;
   }
 
   //IMAGE LIST
@@ -62,6 +163,33 @@
     img {
       width: 100%;
       grid-row-end: span 2;
+    }
+  }
+
+  //IMAGE CARD
+
+  &-card {
+    transition: all 0.3s;
+
+    //Like
+    &--like {
+      position: absolute;
+      right: 1rem;
+      top: 1rem;
+      z-index: 2;
+      height: 2rem;
+      width: 2rem;
+      // display: none;
+      transition: all 0.3s;
+
+      &:hover {
+        transform: scale(1.2);
+        fill: red;
+      }
+    }
+
+    &:hover {
+      transform: scale(1.05);
     }
   }
 }
