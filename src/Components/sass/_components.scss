@@ -14,6 +14,18 @@
   z-index: 10;
 }
 
+//PAGE ICON
+.page-icon--1 {
+  width: 5rem;
+  height: 5rem;
+}
+
+//Sharing container
+.sharing-option {
+  display: flex;
+  justify-content: space-around;
+}
+
 //DEV container
 .dev {
   &__background {
@@ -24,7 +36,7 @@
     right: 4rem;
     border-radius: 10rem;
     background-image: radial-gradient(
-      var(--color-light-purple),
+      var(--color-primary),
       var(--color-dark-purple)
     );
     z-index: 13;
@@ -66,27 +78,54 @@
     transition: ease-in-out 0.8s;
     //Main container
     &--1 {
-      margin-left: 20rem;
+      margin-left: 10rem;
+      position: relative;
+
+      //title
       &-title {
         font-family: inherit;
-        font-size: 5rem;
+        font-size: 8rem;
+        font-weight: 500;
         font-style: italic;
+        // line-height: 1;
+        width: 50rem;
+        /* background-image: url(../../img/title-bg.jpg);
+        background-size: cover;
+        background-clip: text;
+        -webkit-text-fill-color: transparent; */
+
+        //title-sub
+        &-sub {
+          font-family: inherit;
+          font-weight: 300;
+          font-size: 8rem;
+          margin-top: -5rem;
+          text-align: right;
+        }
       }
+
+      //sub
       &-sub {
         font-family: inherit;
         font-size: 1.6rem;
+        display: none;
       }
     }
 
     //Secondary Conatiner
     &--2 {
       margin-left: auto;
-      margin-right: 30rem;
+      margin-right: 10rem;
+
+      &-icon {
+        width: 60rem;
+        height: 35rem;
+        margin-bottom: 10rem;
+      }
 
       &-icon__git {
         height: 3rem;
         width: 3rem;
-        margin-right: 20rem;
         transition: all 0.3s;
         cursor: pointer;
 
@@ -121,9 +160,9 @@
     padding: 0.7rem 2rem;
     text-transform: uppercase;
     border: none;
-    border: 2px solid var(--color-light-purple);
+    // border: 2px solid var(--color-light-purple);
     width: 30%;
-    background-color: var(--color-primary);
+    background-color: var(--color-grey);
     border-radius: 100px;
     transition: all 0.3s;
 
