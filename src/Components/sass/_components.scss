@@ -87,6 +87,10 @@
   height: 4rem;
   width: 100%;
   justify-content: center;
+
+  @media only screen and (max-width: $bp-smallest) {
+    margin-left: -5rem;
+  }
   &__input {
     font-family: inherit;
     font-size: 1.6rem;
@@ -98,6 +102,10 @@
     background-color: var(--color-grey);
     border-radius: 100px;
     transition: all 0.3s;
+
+    @media only screen and (max-width: $bp-smallest) {
+      width: 50%;
+    }
 
     &:focus {
       outline: none;
@@ -131,6 +139,11 @@
     grid-template-columns: repeat(auto-fill, minmax(25rem, 1fr));
     grid-gap: 0 1rem;
     grid-auto-rows: 1rem;
+
+    @media only screen and (max-width: $bp-smallest) {
+      grid-auto-rows: 1.5rem;
+      grid-template-columns: repeat(auto-fill, minmax(25rem, 1fr));
+    }
 
     img {
       width: 100%;
@@ -173,6 +186,13 @@
 }
 
 .dev__nav {
+  //APP ICON
+  &-appicon {
+    @media only screen and (max-width: $bp-smallest) {
+      margin-top: -20rem;
+    }
+  }
+
   //DEV Container
   &-name {
     position: absolute;
@@ -181,6 +201,16 @@
     margin-left: -25vw;
     margin-top: 60vh;
     // display: none;
+
+    @media only screen and (max-width: $bp-medium) {
+      margin-left: -15vw;
+    }
+
+    @media only screen and (max-width: $bp-smallest) {
+      position: relative;
+      margin-left: 30%;
+      margin-top: -15rem;
+    }
 
     &--title {
       font-family: inherit;
@@ -214,6 +244,14 @@
     height: 20rem;
     // width: 10rem;
     display: none;
+
+    @media only screen and (max-width: $bp-medium) {
+      margin-left: 0vw;
+    }
+
+    @media only screen and (max-width: $bp-smallest) {
+      height: 10rem;
+    }
   }
 
   //SHARING CONTAINER
@@ -226,6 +264,16 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+
+    @media only screen and (max-width: $bp-medium) {
+      margin-right: -15vw;
+    }
+
+    @media only screen and (max-width: $bp-smallest) {
+      position: relative;
+      margin-right: 0;
+      margin-top: 10rem;
+    }
     &--title {
       font-family: inherit;
       font-size: 2rem;
@@ -280,5 +328,10 @@
     margin-top: 8.5vh;
     margin-right: 1vw;
     cursor: pointer;
+
+    @media only screen and (max-width: $bp-smallest) {
+      margin-right: 22.5rem;
+      margin-top: 6.3rem;
+    }
   }
 }
