@@ -1,0 +1,25 @@
+{
+  "files": {
+    "main.css": "/pixe/static/css/main.7f85f4b9.chunk.css",
+    "main.js": "/pixe/static/js/main.51997621.chunk.js",
+    "main.js.map": "/pixe/static/js/main.51997621.chunk.js.map",
+    "runtime-main.js": "/pixe/static/js/runtime-main.83710517.js",
+    "runtime-main.js.map": "/pixe/static/js/runtime-main.83710517.js.map",
+    "static/js/2.51779700.chunk.js": "/pixe/static/js/2.51779700.chunk.js",
+    "static/js/2.51779700.chunk.js.map": "/pixe/static/js/2.51779700.chunk.js.map",
+    "index.html": "/pixe/index.html",
+    "static/css/main.7f85f4b9.chunk.css.map": "/pixe/static/css/main.7f85f4b9.chunk.css.map",
+    "static/js/2.51779700.chunk.js.LICENSE.txt": "/pixe/static/js/2.51779700.chunk.js.LICENSE.txt",
+    "static/media/EWpro.1e2453c5.jpg": "/pixe/static/media/EWpro.1e2453c5.jpg",
+    "static/media/icon.310eb321.png": "/pixe/static/media/icon.310eb321.png",
+    "static/media/nav-icon.691dfafc.png": "/pixe/static/media/nav-icon.691dfafc.png",
+    "static/media/pixe-black.27b648d0.png": "/pixe/static/media/pixe-black.27b648d0.png",
+    "static/media/sprite.c613030f.svg": "/pixe/static/media/sprite.c613030f.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.83710517.js",
+    "static/js/2.51779700.chunk.js",
+    "static/css/main.7f85f4b9.chunk.css",
+    "static/js/main.51997621.chunk.js"
+  ]
+}
