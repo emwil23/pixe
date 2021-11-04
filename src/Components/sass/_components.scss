@@ -62,6 +62,7 @@
     }
   }
 
+  //NAV MAIN CONTAINER
   &__nav {
     height: 100vh;
     width: 100vw;
@@ -70,81 +71,13 @@
     right: 0;
     z-index: 14;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
 
     opacity: 0;
     visibility: hidden;
     transition: ease-in-out 0.8s;
-    //Main container
-    &--1 {
-      margin-left: 10rem;
-      position: relative;
-
-      //title
-      &-title {
-        font-family: inherit;
-        font-size: 8rem;
-        font-weight: 500;
-        font-style: italic;
-        // line-height: 1;
-        width: 50rem;
-        /* background-image: url(../../img/title-bg.jpg);
-        background-size: cover;
-        background-clip: text;
-        -webkit-text-fill-color: transparent; */
-
-        //title-sub
-        &-sub {
-          font-family: inherit;
-          font-weight: 300;
-          font-size: 8rem;
-          margin-top: -5rem;
-          text-align: right;
-        }
-      }
-
-      //sub
-      &-sub {
-        font-family: inherit;
-        font-size: 1.6rem;
-        display: none;
-      }
-    }
-
-    //Secondary Conatiner
-    &--2 {
-      margin-left: auto;
-      margin-right: 10rem;
-
-      &-icon {
-        width: 60rem;
-        height: 35rem;
-        margin-bottom: 10rem;
-      }
-
-      &-icon__git {
-        height: 3rem;
-        width: 3rem;
-        transition: all 0.3s;
-        cursor: pointer;
-
-        &:hover {
-          transform: scale(1.2);
-        }
-      }
-
-      &-icon__insta {
-        height: 3rem;
-        width: 3rem;
-        transition: all 0.3s;
-        cursor: pointer;
-
-        &:hover {
-          transform: scale(1.2);
-        }
-      }
-    }
   }
 }
 
@@ -209,6 +142,7 @@
 
   &-card {
     transition: all 0.3s;
+    border-radius: 5px;
 
     //Like
     &--like {
@@ -228,7 +162,123 @@
     }
 
     &:hover {
-      transform: scale(1.05);
+      transform: scale(1.02);
     }
+  }
+}
+
+//NAV ELEMENTS
+.dev__nav-container {
+  position: relative;
+}
+
+.dev__nav {
+  //DEV Container
+  &-name {
+    position: absolute;
+    left: 0;
+    top: 0;
+    margin-left: -25vw;
+    margin-top: 60vh;
+    // display: none;
+
+    &--title {
+      font-family: inherit;
+      font-size: 2rem;
+      font-weight: 300;
+      font-style: bold;
+    }
+    &--text {
+      margin-top: -3rem;
+      font-family: inherit;
+      font-size: 5rem;
+      font-weight: 300;
+      font-style: italic;
+      // color: var(--color-dark-purple);
+    }
+    &--sub {
+      font-family: inherit;
+      margin-top: -3rem;
+      font-size: 5rem;
+      font-weight: 300;
+      font-style: italic;
+      // color: var(--color-dark-purple);
+    }
+  }
+  &-icon {
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin-left: -8vw;
+
+    height: 20rem;
+    // width: 10rem;
+    display: none;
+  }
+
+  //SHARING CONTAINER
+
+  &-sharing {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin-right: -25vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    &--title {
+      font-family: inherit;
+      font-size: 2rem;
+      font-weight: 300;
+      font-style: bold;
+    }
+    &--link {
+      // display: none;
+      width: 10rem;
+      display: flex;
+      justify-content: space-around;
+      &-1 {
+        margin-top: 1rem;
+        height: 3rem;
+        width: 3rem;
+        cursor: pointer;
+        transition: all 0.3s;
+        &:hover {
+          transform: scale(1.2);
+          fill: var(--color-dark-purple);
+        }
+      }
+    }
+  }
+}
+
+//EMAIL FORM SHARING
+
+.email-form {
+  &__input {
+    margin-top: 2rem;
+    outline: none;
+    border: none;
+    height: 4rem;
+    width: 20rem;
+    padding: 1.4rem;
+    border-radius: 10px;
+    background-color: var(--color-grey);
+    color: white;
+    font-weight: 500;
+    font-size: 1rem;
+  }
+
+  &__copy {
+    // display: none;
+    position: absolute;
+    // display: inline-block;
+    height: 2rem;
+    width: 2rem;
+    top: 0;
+    right: 0;
+    margin-top: 8.5vh;
+    margin-right: 1vw;
+    cursor: pointer;
   }
 }

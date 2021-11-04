@@ -3,8 +3,8 @@ import React from 'react';
 import EW from '../img/EWpro.jpg';
 import sprite from '../img/sprite.svg';
 import icon from '../img/icon.png';
-import iconcta from '../img/cta.png';
-// import ctasvg from '../img/cta.svg';
+import pixeb from '../img/pixe-black.png';
+import navicon from '../img/nav-icon.png';
 
 class SearchBar extends React.Component {
   state = { term: '' };
@@ -63,43 +63,66 @@ class SearchBar extends React.Component {
             &nbsp;
           </div>
           <div className='dev__nav' id='navi'>
-            <div className='dev__nav--1'>
-              <div className='dev__nav--1-title'>Emmanuel</div>
-              <div className='dev__nav--1-title-sub'>Wilson</div>
-              <div className='dev__nav--1-sub'>
-                A develpoper with an artistic approch.
+            <div className='dev__nav-container'>
+              <div className='dev__nav-appicon'>
+                <img src={pixeb} alt='logo of brand' />
               </div>
-            </div>
-            <div className='dev__nav--2'>
-              <div className='dev__nav--2-icon'>
+              <div className='dev__nav-name'>
+                <div className='dev__nav-name--title'>Developer:</div>
+                <div className='dev__nav-name--text'>Emmanuel</div>
+                <div className='dev__nav-name--sub'>Wilson</div>
+              </div>
+              <div className='dev__nav-icon'>
                 <img
-                  src={iconcta}
-                  alt='cta icon'
-                  className='dev__nav--2-icon'
+                  src={navicon}
+                  alt='nav icon yoo'
+                  className='dev__nav-icon'
                 />
-
-                {/* <svg className='dev__nav--2-icon' src={ctasvg}></svg> */}
               </div>
-              <div className='sharing-option'>
-                <svg
-                  className='dev__nav--2-icon__git'
-                  onClick={() => {
-                    window.open('https://github.com/emwil23', '__blank');
-                  }}
-                >
-                  <use xlinkHref={sprite + '#icon-github'} />
-                </svg>
-                <svg
-                  className='dev__nav--2-icon__insta'
-                  onClick={() => {
-                    window.open(
-                      'https://www.instagram.com/iam_e.w/',
-                      '__blank'
-                    );
-                  }}
-                >
-                  <use xlinkHref={sprite + '#icon-instagrem'} />
-                </svg>
+              <div className='dev__nav-sharing'>
+                <div className='dev__nav-sharing--title'>Get in Touch</div>
+                <div className='dev__nav-sharing--email'>
+                  <form className='email-form'>
+                    <input
+                      type='text'
+                      readOnly='true'
+                      className='email-form__input'
+                      value='emmanuel23jazz@gmail.com'
+                      id='emailcpy'
+                    />
+                  </form>
+                  <svg
+                    className='email-form__copy'
+                    onClick={() => {
+                      document.getElementById('emailcpy').select();
+                      document.execCommand('copy');
+                      alert('Copied');
+                    }}
+                  >
+                    <use xlinkHref={sprite + '#icon-clone'} />
+                  </svg>
+                </div>
+                <div className='dev__nav-sharing--link'>
+                  <svg
+                    className='dev__nav-sharing--link-1'
+                    onClick={() => {
+                      window.open('https://github.com/emwil23', '__blank');
+                    }}
+                  >
+                    <use xlinkHref={sprite + '#icon-github'} />
+                  </svg>
+                  <svg
+                    className='dev__nav-sharing--link-1'
+                    onClick={() => {
+                      window.open(
+                        'https://www.instagram.com/iam_e.w/',
+                        '__blank'
+                      );
+                    }}
+                  >
+                    <use xlinkHref={sprite + '#icon-instagrem'} />
+                  </svg>
+                </div>
               </div>
             </div>
           </div>

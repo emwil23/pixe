@@ -17,7 +17,7 @@ class ImageCard extends React.Component {
 
   setSpans = () => {
     const height = this.imageRef.current.clientHeight;
-    console.log(height);
+    // console.log(height);
 
     const span = Math.ceil(height / 10 + 1);
 
@@ -35,6 +35,10 @@ class ImageCard extends React.Component {
           alt={discription}
           src={urls.small}
           className='image-card'
+          onClick={(e) => {
+            // window.open(`${e.target.src}`, '__blank');
+            // console.log(e.target);
+          }}
         />
         {/* <svg className='image-card--like'>
           <use xlinkHref={sprite + '#icon-like-love-streamline'} />
