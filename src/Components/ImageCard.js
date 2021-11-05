@@ -23,6 +23,7 @@ class ImageCard extends React.Component {
 
     this.setState({ span });
   };
+
   render() {
     const { discription, urls } = this.props.image;
 
@@ -34,10 +35,10 @@ class ImageCard extends React.Component {
           ref={this.imageRef}
           alt={discription}
           src={urls.small}
+          id={urls.regular}
           className='image-card'
-          onClick={(e) => {
-            // window.open(`${e.target.src}`, '__blank');
-            // console.log(e.target);
+          onClick={() => {
+            window.open(`${this.imageRef.current.id}`, '__blank');
           }}
         />
         {/* <svg className='image-card--like'>

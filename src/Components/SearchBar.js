@@ -85,7 +85,7 @@ class SearchBar extends React.Component {
                   <form className='email-form'>
                     <input
                       type='text'
-                      readOnly='true'
+                      readOnly={true}
                       className='email-form__input'
                       value='emmanuel23jazz@gmail.com'
                       id='emailcpy'
