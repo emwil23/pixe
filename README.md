@@ -5,5 +5,5 @@ An Image searching app powered by Unsplash API and ReactJS.
 You can search images of any type or kind which is there on the Unsplash Database the free API has some limitations
 as it can display only a specified number of images.
 
-### Want to try it out?
+### Wanna try it out?
 https://emwil23.github.io/pixe/
