@@ -30,7 +30,7 @@ class SearchBar extends React.Component {
           <input
             id='input__focus'
             className='form__input'
-            type='text'
+            type='search'
             placeholder='Search for images'
             value={this.state.term}
             onChange={(event) => {
@@ -84,7 +84,7 @@ class SearchBar extends React.Component {
                 <div className='dev__nav-sharing--email'>
                   <form className='email-form'>
                     <input
-                      type='search'
+                      type='text'
                       readOnly={true}
                       className='email-form__input'
                       value='emmanuel23jazz@gmail.com'
