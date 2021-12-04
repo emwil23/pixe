@@ -68,7 +68,7 @@ class SearchBar extends React.Component {
                 <img src={pixeb} alt='logo of brand' />
               </div>
               <div className='dev__nav-name'>
-                <div className='dev__nav-name--title'>Developer:</div>
+                <div className='dev__nav-name--title'>Developer</div>
                 <div className='dev__nav-name--text'>Emmanuel</div>
                 <div className='dev__nav-name--sub'>Wilson</div>
               </div>
@@ -84,23 +84,23 @@ class SearchBar extends React.Component {
                 <div className='dev__nav-sharing--email'>
                   <form className='email-form'>
                     <input
-                      type='text'
+                      type='search'
                       readOnly={true}
                       className='email-form__input'
                       value='emmanuel23jazz@gmail.com'
                       id='emailcpy'
                     />
+                    <svg
+                      className='email-form__copy'
+                      onClick={() => {
+                        document.getElementById('emailcpy').select();
+                        document.execCommand('copy');
+                        alert('Copied');
+                      }}
+                    >
+                      <use xlinkHref={sprite + '#icon-clone'} />
+                    </svg>
                   </form>
-                  <svg
-                    className='email-form__copy'
-                    onClick={() => {
-                      document.getElementById('emailcpy').select();
-                      document.execCommand('copy');
-                      alert('Copied');
-                    }}
-                  >
-                    <use xlinkHref={sprite + '#icon-clone'} />
-                  </svg>
                 </div>
                 <div className='dev__nav-sharing--link'>
                   <svg
