@@ -105,8 +105,19 @@ export async function searchAll(
   query: PhotoQuery,
   sources: Source[] = SOURCES,
   signal?: AbortSignal,
+  /** Called as each source answers, with everything so far, so slow sources don't hold up the rest. */
+  onPartial?: (photos: Photo[]) => void,
 ): Promise<{ photos: Photo[]; hasMore: boolean; failed: Source[] }> {
-  const results = await Promise.allSettled(sources.map((s) => searchSource(s, query, signal)))
+  const lists: Photo[][] = sources.map(() => [])
+  const results = await Promise.allSettled(
+    sources.map((s, i) =>
+      searchSource(s, query, signal).then((page) => {
+        lists[i] = page.photos
+        if (!signal?.aborted) onPartial?.(mergeResults(lists))
+        return page
+      }),
+    ),
+  )
   const failed = sources.filter((_, i) => results[i]?.status === 'rejected')
   const pages = results.flatMap((r) => (r.status === 'fulfilled' ? [r.value] : []))
   if (signal?.aborted) throw new DOMException('Aborted', 'AbortError')

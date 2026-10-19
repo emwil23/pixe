@@ -1,0 +1,9 @@
+{
+  "cleanUrls": true,
+  "rewrites": [
+    { "source": "/app", "destination": "/shell/index.html" },
+    { "source": "/app/**", "destination": "/shell/index.html" },
+    { "source": "/settings", "destination": "/shell/index.html" },
+    { "source": "/b/**", "destination": "/shell/index.html" }
+  ]
+}

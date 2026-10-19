@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pixe: AI moodboards for creative direction</title>
+    <meta
+      name="description"
+      content="Describe a vibe and Pixe builds a moodboard from Unsplash, Pexels and Openverse, pulls out the palette, pairs fonts and writes the creative brief."
+    />
+    <meta name="theme-color" content="#0E0D0C" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <meta property="og:title" content="Pixe: AI moodboards for creative direction" />
+    <meta
+      property="og:description"
+      content="Describe a vibe. Get a board, a palette, a font pairing and a brief."
+    />
+    <meta property="og:image" content="/media/og.jpg" />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <script>
+      // Set the theme before first paint so there is no flash.
+      try {
+        const s = JSON.parse(localStorage.getItem('pixe-settings') || '{}').state || {}
+        const t = s.theme || 'system'
+        const dark =
+          t === 'dark' || (t === 'system' && matchMedia('(prefers-color-scheme: dark)').matches)
+        document.documentElement.dataset.theme = dark ? 'dark' : 'light'
+      } catch {}
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

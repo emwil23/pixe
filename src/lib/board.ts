@@ -85,7 +85,7 @@ export async function addPhotos(boardId: string, photos: Photo[], at?: { x: numb
   const existing = await db.items.where({ boardId }).toArray()
   const b = bounds(existing)
   let z = Math.max(0, ...existing.map((i) => i.z))
-  const columns = Math.min(4, Math.max(1, Math.ceil(photos.length / 3)))
+  const columns = Math.min(4, Math.max(1, Math.ceil(photos.length / 2)))
   const spots = at
     ? photos.map((_, i) => ({ x: at.x + i * 24, y: at.y + i * 24, w: PHOTO_WIDTH }))
     : masonry(photos, { columns, x: b ? b.x + b.w + GAP * 2 : 0, y: b ? b.y : 0 })
