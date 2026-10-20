@@ -106,11 +106,12 @@ function Hero({ can3D }: { can3D: boolean }) {
     const st = ScrollTrigger.create({
       trigger: section.current,
       start: 'top top',
-      end: 'bottom top',
+      // Done by the time the sticky hero lets go.
+      end: 'bottom bottom',
     })
     // A short intro brings the cards in a little on load; scrolling then lands them.
     const tick = () => {
-      progress.current = st.progress > 0 ? Math.max(intro.v, 0.3 + st.progress * 0.9) : intro.v
+      progress.current = st.progress > 0 ? Math.max(intro.v, 0.3 + st.progress * 0.75) : intro.v
     }
     gsap.ticker.add(tick)
     return () => {

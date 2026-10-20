@@ -34,7 +34,8 @@ function makeCards(): CardSpec[] {
     for (let c = 0; c < COLS; c++) {
       const i = r * COLS + c
       cards.push({
-        from: [rand() * 4.2, rand() * 2.6, -1.5 + rand() * 2.2],
+        // Always between the board and the camera, so no card hides behind the slab.
+        from: [rand() * 3.4, rand() * 2.2, 0.8 + (rand() + 1) * 0.9],
         fromRot: [rand() * 0.6, rand() * 0.8, rand() * 0.5],
         to: [(c - (COLS - 1) / 2) * (CARD_W + GAP), ((ROWS - 1) / 2 - r) * (CARD_H + GAP), 0.05],
         texture: i % TEXTURES.length,
@@ -123,7 +124,7 @@ function Board({ progress }: { progress: Progress }) {
   const boardW = COLS * (CARD_W + GAP) + 0.4
   const boardH = ROWS * (CARD_H + GAP) + 1.1
   return (
-    <group ref={group} position={[0.6, 0.15, 0]}>
+    <group ref={group} position={[0.55, 0.15, 0]} scale={0.62}>
       {/* The board itself: a dark slab, like the light table in the app. */}
       <RoundedBox args={[boardW, boardH, 0.08]} radius={0.06} position={[0, -0.25, -0.06]}>
         <meshStandardMaterial color="#181614" roughness={0.9} />
@@ -157,7 +158,7 @@ export default function Hero3D({ progress }: { progress: Progress }) {
         frameloop={visible ? 'always' : 'never'}
         className="!absolute inset-0"
         dpr={[1, 1.75]}
-        camera={{ position: [0, 0, 7], fov: 42 }}
+        camera={{ position: [0, 0, 8], fov: 40 }}
         gl={{ antialias: true, alpha: true, powerPreference: 'high-performance' }}
         aria-hidden
       >

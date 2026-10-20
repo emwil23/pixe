@@ -135,9 +135,8 @@
   background-size: 24px 24px;
 }
 
-/* Film grain over big hero surfaces. */
+/* Film grain over big hero surfaces. The element must be positioned (relative, sticky…). */
 @utility grain {
-  position: relative;
   &::after {
     content: '';
     position: absolute;
