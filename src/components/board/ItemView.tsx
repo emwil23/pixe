@@ -2,7 +2,7 @@ import { altOf } from '@/lib/board'
 import { cn } from '@/lib/cn'
 import type { Item } from '@/lib/db'
 import { fontStack, loadGoogleFont } from '@/lib/fonts'
-import { SOURCE_NAME } from '@/lib/photos'
+import { fallBackToOriginal, SOURCE_NAME } from '@/lib/photos'
 import { useEffect, useState } from 'react'
 
 /** How one item looks on the board. Pointer and keyboard handling live in the Canvas. */
@@ -28,6 +28,7 @@ export function ItemView({
         <figure className={cn('print size-full transition-transform duration-150', lift)}>
           <img
             src={src}
+            onError={(e) => fallBackToOriginal(e.currentTarget, item.photo)}
             alt={altOf(item)}
             draggable={false}
             loading="lazy"

@@ -173,6 +173,14 @@ export const creditText = (p: Photo) =>
     .map((c) => c.text)
     .join('')
 
+/**
+ * For an <img onError>: Openverse's thumbnail service sometimes fails, so try the original once.
+ * The original can be several MB, which is why it isn't the first choice.
+ */
+export function fallBackToOriginal(img: HTMLImageElement, p: Photo) {
+  if (img.src !== p.src) img.src = p.src
+}
+
 /** Unsplash asks to be told whenever a photo is downloaded or exported. Fire and forget. */
 export function trackDownload(p: Photo) {
   if (!API_URL || p.source !== 'unsplash' || !p.downloadLocation) return

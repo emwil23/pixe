@@ -1,5 +1,5 @@
 import { cn } from '@/lib/cn'
-import type { Photo } from '@/lib/photos'
+import { fallBackToOriginal, type Photo } from '@/lib/photos'
 import { useVirtualizer } from '@tanstack/react-virtual'
 import { Plus, Sparkles } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
@@ -125,6 +125,7 @@ function PhotoTile({
       >
         <img
           src={photo.thumb}
+          onError={(e) => fallBackToOriginal(e.currentTarget, photo)}
           alt={alt}
           loading="lazy"
           decoding="async"
