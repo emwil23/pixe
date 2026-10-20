@@ -17,8 +17,14 @@ await writeFile(new URL('404.html', dist), shell)
 // competing with the first paint. Hydration then attaches to the same DOM.
 const entry = shell.match(/<script type="module" crossorigin src="([^"]+)"><\/script>/)?.[1]
 if (!entry) throw new Error('Entry script not found in shell/index.html')
+// Inline the stylesheet too, so the first paint needs only the HTML. A replacer function keeps any `$` in
+// the CSS from being read as a replacement pattern.
+const cssHref = shell.match(/<link rel="stylesheet" crossorigin href="([^"]+)">/)?.[1]
+if (!cssHref) throw new Error('Stylesheet not found in shell/index.html')
+const css = await readFile(new URL(`.${cssHref}`, dist), 'utf8')
 const template = shell
   .replace(/\s*<link rel="modulepreload"[^>]*>/g, '')
+  .replace(/<link rel="stylesheet" crossorigin href="[^"]+">/, () => `<style>${css}</style>`)
   .replace(
     /<script type="module" crossorigin src="[^"]+"><\/script>/,
     // After the load event, so the app's JS never shares the network with the first paint.

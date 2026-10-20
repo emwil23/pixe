@@ -4,7 +4,7 @@
       "staticDistDir": "./dist",
       "isSinglePageApplication": true,
       "url": ["http://localhost/", "http://localhost/developer", "http://localhost/pro"],
-      "numberOfRuns": 3
+      "numberOfRuns": 5
     },
     "assert": {
       "assertions": {
