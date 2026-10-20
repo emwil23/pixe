@@ -1,0 +1,6 @@
+# The app has no prerendered HTML: serve the plain shell. It lives in a folder because Pages redirects
+# any *.html path to its extensionless URL. Unknown paths get 404.html (the same shell) and the 404 page.
+/app      /shell/  200
+/app/*    /shell/  200
+/settings /shell/  200
+/b/*      /shell/  200

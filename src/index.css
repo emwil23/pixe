@@ -1,0 +1,175 @@
+@import 'tailwindcss';
+
+/* Self-hosted latin files. Not preloaded: on a slow phone, preloads compete with the first paint and cost
+   Lighthouse about 0.05. */
+@font-face {
+  font-family: 'Inter Tight Variable';
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('/fonts/inter-tight-latin-wght-normal.woff2') format('woff2-variations');
+}
+/* Mono is only for small spec labels: one weight, latin only (subset with fontTools; see docs/assets.md). */
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/jetbrains-mono-latin-400.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Instrument Serif';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/instrument-serif-latin-400-normal.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Instrument Serif';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/instrument-serif-latin-400-italic.woff2') format('woff2');
+}
+
+@custom-variant dark (&:where([data-theme='dark'], [data-theme='dark'] *));
+
+/* Palette from docs/design-brief.md: a warm darkroom desk; the photos carry the colour. */
+:root,
+[data-theme='dark'] {
+  --bg: #0e0d0c;
+  --surface: #181614;
+  --surface-2: #211e1b;
+  --line: #2a2723;
+  --print: #f4f0e8;
+  --text: #ede8df;
+  --muted: #a39c91;
+  /* Loupe green: fills with dark ink on top, rings and selection. */
+  --accent: #d4ff3a;
+  --accent-ink: #0e0d0c;
+  /* Accent as text on the background. */
+  --accent-text: #d4ff3a;
+  --danger: #ff5a36;
+  --shadow: 0 1px 2px rgb(0 0 0 / 0.5), 0 12px 32px -8px rgb(0 0 0 / 0.6);
+  color-scheme: dark;
+}
+
+[data-theme='light'] {
+  --bg: #f2eee6;
+  --surface: #ffffff;
+  --surface-2: #e9e4da;
+  --line: #d9d2c5;
+  --print: #ffffff;
+  --text: #1a1816;
+  --muted: #5e574d;
+  --accent: #d4ff3a;
+  --accent-ink: #0e0d0c;
+  --accent-text: #4a6400;
+  --danger: #c2381a;
+  --shadow: 0 1px 2px rgb(40 30 20 / 0.12), 0 12px 32px -10px rgb(40 30 20 / 0.25);
+  color-scheme: light;
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-line: var(--line);
+  --color-print: var(--print);
+  --color-text: var(--text);
+  --color-muted: var(--muted);
+  --color-accent: var(--accent);
+  --color-accent-ink: var(--accent-ink);
+  --color-accent-text: var(--accent-text);
+  --color-danger: var(--danger);
+  --shadow-print: var(--shadow);
+  --font-display: 'Instrument Serif', ui-serif, Georgia, serif;
+  --font-sans: 'Inter Tight Variable', ui-sans-serif, system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+}
+
+@layer base {
+  html {
+    background: var(--bg);
+    color: var(--text);
+    -webkit-font-smoothing: antialiased;
+  }
+  body {
+    @apply font-sans;
+    min-height: 100dvh;
+  }
+  :focus-visible {
+    outline: 2px solid var(--accent-text);
+    outline-offset: 2px;
+  }
+  ::selection {
+    background: color-mix(in oklab, var(--accent) 45%, transparent);
+    color: var(--text);
+  }
+}
+
+/* Mono spec line: "UNSPLASH / 4000×6000 / #8C5A3C". */
+@utility spec {
+  @apply font-mono text-[11px] tracking-[0.14em] uppercase;
+}
+
+/* A photo as a print: warm white border and a soft shadow. */
+@utility print {
+  background: var(--print);
+  padding: 6px;
+  box-shadow: var(--shadow);
+}
+
+/* The tick-mark ruler along the board and landing sections. */
+@utility ruler-x {
+  background-image:
+    linear-gradient(90deg, var(--line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--muted) 1px, transparent 1px);
+  background-size:
+    8px 6px,
+    80px 12px;
+  background-repeat: repeat-x;
+  background-position: bottom left;
+}
+
+/* The light table: a faint dot grid. */
+@utility desk {
+  background-color: var(--bg);
+  background-image: radial-gradient(
+    color-mix(in oklab, var(--muted) 22%, transparent) 1px,
+    transparent 1px
+  );
+  background-size: 24px 24px;
+}
+
+/* Film grain over big hero surfaces. The element must be positioned (relative, sticky…). */
+@utility grain {
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.07;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  ::before,
+  ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Lenis */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
