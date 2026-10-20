@@ -42,7 +42,9 @@ export function PhotoGrid({
 
   const gap = 12
   const colWidth = width ? (width - gap * (columns - 1)) / columns : 200
-  const caption = 64
+  // Every tile's height is known from its aspect ratio plus a fixed caption, so nothing is measured
+  // after render and the columns never reshuffle.
+  const caption = 40
 
   // eslint-disable-next-line react-hooks/incompatible-library -- TanStack Virtual returns fresh functions by design
   const virtualizer = useVirtualizer({
@@ -78,8 +80,6 @@ export function PhotoGrid({
           return (
             <li
               key={p.id}
-              ref={virtualizer.measureElement}
-              data-index={v.index}
               className="absolute top-0"
               style={{
                 width: colWidth,
@@ -163,7 +163,7 @@ function PhotoTile({
           )}
         </div>
       </div>
-      <figcaption className="mt-1.5">
+      <figcaption className="mt-1.5 h-[34px] overflow-hidden">
         <Credit photo={photo} className="line-clamp-2 text-[11px] leading-snug" />
       </figcaption>
     </figure>
