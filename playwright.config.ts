@@ -17,6 +17,8 @@ export default defineConfig({
     // serve.json mirrors public/_redirects, so routing matches Cloudflare Pages.
     command: 'npm run build && npx serve dist -c ../serve.json -l 4173',
     port: 4173,
+    // e2e/app.spec.ts answers every request to this made-up API host.
+    env: { VITE_API_URL: 'http://api.test' },
     reuseExistingServer: !process.env.CI,
     timeout: 180_000,
   },

@@ -28,7 +28,7 @@ export function SiteLayout() {
               <Link
                 key={l.label}
                 to={l.to}
-                {...('hash' in l && { hash: l.hash })}
+                {...('hash' in l && { hash: l.hash, activeOptions: { includeHash: true } })}
                 className="text-muted hover:text-text [&.active]:text-text rounded-lg px-3 py-1.5 text-sm"
               >
                 {l.label}

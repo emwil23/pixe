@@ -56,13 +56,12 @@ export default defineConfig({
         clientsClaim: true,
         globPatterns: ['**/*.{js,css,svg,woff2,avif,webp,png}', 'shell/index.html'],
         // The hero video and the 3D bundle are landing-page extras; don't make every install download them.
-        globIgnores: ['**/media/*.mp4', '**/media/*.webm', '**/Hero3D-*.js', '**/jspdf*.js'],
+        globIgnores: ['**/media/*.mp4', '**/media/*.webm', '**/Hero3D-*.js'],
         navigateFallback: '/shell/index.html',
       },
     }),
   ],
   // The lazy 3D hero chunk (three.js) is ~1 MB by itself; it loads after first paint, on wide screens only.
-  // jsPDF is similar, and loads only when a brand kit is exported.
   build: { chunkSizeWarningLimit: 1200 },
   resolve: { alias: { '@': fileURLToPath(new URL('./src', import.meta.url)) } },
   test: {
