@@ -30,3 +30,7 @@ Shared style for every still: _premium 3D render / editorial still life, warm da
 - Clips: `ffmpeg`, H.264 CRF 27 (`+faststart`) and VP9 CRF 38, 30 fps, no audio. The developer poster is the clip's own first frame, so nothing jumps when it starts.
 - Clips load with `preload="none"` and play only while on screen (`src/components/LoopVideo.tsx`), and never with reduced motion. The service worker doesn't precache them.
 - Downloaded originals were deleted from `D:\Downloads` once these were in the repo.
+
+## Fonts
+
+Self-hosted in `public/fonts`, latin only: Instrument Serif (regular and italic), Inter Tight (variable) and JetBrains Mono. The mono face is only for small spec labels, so it is pinned to weight 400 and subset with fontTools (`fonttools varLib.instancer … wght=400`, then `pyftsubset` to ASCII, Latin-1 and a few punctuation marks), which takes it from 40 kB to 18 kB. All three are SIL Open Font License.
