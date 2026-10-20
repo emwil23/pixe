@@ -149,6 +149,9 @@ function Hero({ can3D }: { can3D: boolean }) {
         >
           <img
             src="/media/hero.webp"
+            srcSet="/media/hero-828.webp 828w, /media/hero.webp 1376w"
+            // On phones the art is a dimmed background under two gradients; the 828px copy is plenty.
+            sizes="(min-width: 768px) 64vw, 40vw"
             alt=""
             width={1376}
             height={768}

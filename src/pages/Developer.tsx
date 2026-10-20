@@ -83,6 +83,7 @@ export function Developer() {
             poster="/media/developer-poster.webp"
             label="Emmanuel's 3D character pinning a print to a moodboard wall, then smiling at the camera"
             reduce={reduce}
+            eagerPoster
             className="print relative aspect-[4/5] w-full rotate-[-1.5deg]"
           />
           <span className="spec border-line bg-surface absolute -bottom-4 left-6 rounded-full border px-3 py-1.5">

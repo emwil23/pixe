@@ -43,6 +43,18 @@ const BEATS = [
 export function Story({ animate }: { animate: boolean }) {
   const root = useRef<HTMLElement>(null)
   const [active, setActive] = useState(0)
+  // The art loads only as the story nears the screen, so it never competes with the hero's first paint
+  // (native lazy loading still fetches anything within a few screens).
+  const [near, setNear] = useState(false)
+  useEffect(() => {
+    const el = root.current
+    if (!el) return
+    const io = new IntersectionObserver(([e]) => e?.isIntersecting && setNear(true), {
+      rootMargin: '600px 0px',
+    })
+    io.observe(el)
+    return () => io.disconnect()
+  }, [])
 
   useEffect(() => {
     if (!animate || !root.current) return
@@ -96,7 +108,7 @@ export function Story({ animate }: { animate: boolean }) {
               <p className="text-muted mt-4 max-w-md text-lg">{b.body}</p>
               {/* Phones see each beat's art inline. */}
               <img
-                src={`/media/step-${b.key}.webp`}
+                src={near ? `/media/step-${b.key}.webp` : undefined}
                 alt={b.alt}
                 width={720}
                 height={720}
@@ -111,7 +123,7 @@ export function Story({ animate }: { animate: boolean }) {
             {BEATS.map((b, i) => (
               <img
                 key={b.key}
-                src={`/media/step-${b.key}.webp`}
+                src={near ? `/media/step-${b.key}.webp` : undefined}
                 alt={active === i ? b.alt : ''}
                 aria-hidden={active !== i}
                 width={720}

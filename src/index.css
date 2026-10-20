@@ -1,14 +1,21 @@
 @import 'tailwindcss';
-@import '@fontsource-variable/jetbrains-mono';
 
-/* The display and body faces carry the LCP text, so their latin files are served from /fonts and
-   preloaded in index.html instead of being found late inside the CSS. */
+/* Self-hosted latin files. Not preloaded: on a slow phone, preloads compete with the first paint and cost
+   Lighthouse about 0.05. */
 @font-face {
   font-family: 'Inter Tight Variable';
   font-style: normal;
   font-weight: 100 900;
   font-display: swap;
   src: url('/fonts/inter-tight-latin-wght-normal.woff2') format('woff2-variations');
+}
+/* Mono is only for small spec labels: one weight, latin only (subset with fontTools; see docs/assets.md). */
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/jetbrains-mono-latin-400.woff2') format('woff2');
 }
 @font-face {
   font-family: 'Instrument Serif';
@@ -78,7 +85,7 @@
   --shadow-print: var(--shadow);
   --font-display: 'Instrument Serif', ui-serif, Georgia, serif;
   --font-sans: 'Inter Tight Variable', ui-sans-serif, system-ui, sans-serif;
-  --font-mono: 'JetBrains Mono Variable', ui-monospace, monospace;
+  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
 }
 
 @layer base {
