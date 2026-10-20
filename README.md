@@ -4,7 +4,7 @@
 
 ### Describe a vibe. Get a direction.
 
-An AI moodboard and creative-direction tool. Type a sentence like "cozy autumn café brand, film grain, warm" and Pixe lays real, credited photos from Unsplash, Pexels and Openverse on an infinite board, pulls out the palette, pairs Google Fonts, checks contrast and writes a one-page creative brief.
+An AI moodboard and creative-direction tool. Type a sentence like "cozy autumn café brand, film grain, warm" and Pixe lays real, credited photos from Unsplash and Openverse on an infinite board, pulls out the palette, pairs Google Fonts, checks contrast and writes a one-page creative brief.
 
 **[pixe-43t.pages.dev](https://pixe-43t.pages.dev)** · [The shared API](https://github.com/emwil23/ew-apps-api)
 
@@ -38,7 +38,8 @@ So the rebuild keeps the masonry feel and changes the job. Pixe is for the momen
 ```mermaid
 flowchart LR
     V([A vibe]) --> Q[AI: five searches<br/>subject · texture · light · place · detail]
-    Q --> S[Unsplash · Pexels · Openverse<br/>through ew-apps-api]
+    Q --> S[Unsplash · Openverse<br/>through ew-apps-api]
+    Q -.-> PXP[Pexels<br/>planned: waiting on keys]
     S --> B[(Board<br/>Dexie)]
     B --> P[Palette<br/>node-vibrant, on the device]
     B --> F[Font pairings<br/>AI, Google Fonts only]
@@ -52,9 +53,9 @@ flowchart LR
 |                                                                                                                                                                                                                           |                                                                                                                                                                                                                                |
 | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | <img src="docs/board.png" alt="A board built from the vibe, with photo prints in masonry columns, each with its source and photographer underneath, and the board palette in the side panel">                             | <img src="docs/inspector.png" alt="One print selected on the board; the side panel shows the photo, its credit line and licence, its alt text, and buttons to describe it with AI, find more like it and extract its colours"> |
-| **The board.** A sentence becomes about fifteen photos from three libraries, laid out as masonry, with the palette already pulled. Drag, resize, group, add notes.                                                        | **Every print is credited.** The inspector shows the credit each source asks for, the licence for Openverse photos, real alt text, and "more like this".                                                                       |
+| **The board.** A sentence becomes up to fifteen photos from Unsplash and Openverse, laid out as masonry, with the palette already pulled. Drag, resize, group, add notes.                                                 | **Every print is credited.** The inspector shows the credit each source asks for, the licence for Openverse photos, real alt text, and "more like this".                                                                       |
 | <img src="docs/discover.png" alt="The Discover page: a search box with an Expand with AI button, filters for source, shape, colour and licence, and a masonry grid of results, each tile with a source badge and credit"> | <img src="docs/palette.png" alt="The Palette page: six swatches as prints, a harmony strip, a contrast grid of every colour pair graded AA, AAA or Fail, and the palette as CSS variables">                                    |
-| **Discover.** All three libraries at once, results appearing as each one answers. "Expand with AI" turns an idea into searches.                                                                                           | **Palette.** Drop any image (it never leaves the browser) or use a board's palette: harmonies, a WCAG grid, and export as CSS, Tailwind v4 or W3C design tokens for Figma.                                                     |
+| **Discover.** Every library at once, results appearing as each one answers. "Expand with AI" turns an idea into searches.                                                                                                 | **Palette.** Drop any image (it never leaves the browser) or use a board's palette: harmonies, a WCAG grid, and export as CSS, Tailwind v4 or W3C design tokens for Figma.                                                     |
 | <img src="docs/list-view.png" alt="The board's list view: each item in reading order with a thumbnail, its description, its credit and a remove button">                                                                  | <img src="docs/dashboard.png" alt="The boards dashboard: each board as a contact sheet of six thumbnails with its palette strip and title in serif">                                                                           |
 | **A list view of every board.** The same items in reading order, for screen readers and for checking credits at a glance.                                                                                                 | **Boards as contact sheets.** Six slots, the palette strip, the title in serif.                                                                                                                                                |
 | <img src="docs/board-light.png" alt="A board in the light 'daylight' theme on warm paper">                                                                                                                                | <img src="docs/mobile-landing.png" alt="The Pixe landing page on a phone: the headline, the vibe box and the hero art" width="60%">                                                                                            |
@@ -84,7 +85,7 @@ flowchart TB
     end
     BD & DI -->|search| PH[ew-apps-api<br/>/api/photos/:source/search]
     PH --> U[Unsplash]
-    PH --> PX[Pexels]
+    PH -.-> PX[Pexels<br/>planned: waiting on keys]
     PH --> OV[Openverse]
     AI --> P{Provider<br/>chosen in Settings}
     P -->|default| EW[ew-apps-api<br/>/api/ai/pixe/:action]
@@ -102,7 +103,7 @@ sequenceDiagram
     participant B as Board page
     participant AI as Provider
     participant API as ew-apps-api
-    participant S as Unsplash · Pexels · Openverse
+    participant S as Unsplash · Openverse
     U->>B: "cozy autumn café, film grain"
     B->>AI: queries {vibe}
     AI-->>B: {"query":"latte art close-up","angle":"subject"}\n…
@@ -133,14 +134,22 @@ flowchart LR
 
 ## Decisions worth explaining
 
-- **Not an Unsplash clone.** Unsplash's guidelines forbid replicating its core experience, so search lives inside a board, not on a home page of results. Pixe uses the image URLs each API returns (no re-hosting), reports downloads to Unsplash when a board is exported, links photographers with UTM tags, links Pexels prominently, and shows each Openverse licence. Openverse doesn't check licences, so the terms say to check before use.
-- **The keys stay on the server.** The old app shipped its Unsplash key to every browser. Now `ew-apps-api` holds the Unsplash and Pexels keys, turns three different JSON shapes into one, and caches each search for an hour: Pexels allows 200 calls an hour and anonymous Openverse 200 a day, shared by everyone.
+- **Pexels is built but switched off.** The API, filters and credit line for Pexels are done and tested, but Pexels has paused new API keys. Without a key the API answers 503 for that source and Pixe searches the others; it switches on when a key goes into `ew-apps-api`'s `.env`, with no code change.
+- **Not an Unsplash clone.** Unsplash's guidelines forbid replicating its core experience, so search lives inside a board, not on a home page of results. Pixe uses the image URLs each API returns (no re-hosting), reports downloads to Unsplash when a board is exported, links photographers with UTM tags, and shows each Openverse licence (a prominent Pexels link is ready for when Pexels is on). Openverse doesn't check licences, so the terms say to check before use.
+- **The keys stay on the server.** The old app shipped its Unsplash key to every browser. Now `ew-apps-api` holds the keys, turns each source's JSON into one shape, and caches each search for an hour: anonymous Openverse allows 200 calls a day and Unsplash's demo tier 50 an hour, shared by everyone.
 - **A DOM canvas, not a `<canvas>`.** The brief allowed tldraw (its licence needs a paid key for a commercial app with Pro) or react-konva. Konva draws pixels a screen reader can't see. Here every print is a real element in one transformed layer: it can be tabbed to, has alt text, moves with the arrow keys, and the board has a list view too. Pointer drag, a resize handle, pan, Ctrl+scroll and pinch zoom took about 350 lines.
 - **Slow sources don't hold the page.** Openverse can take 40 seconds on a query it hasn't cached. Results merge in as each source answers, and the board build leaves out any source still searching after 12 seconds.
 - **The AI sees only words and public stock photos.** Vibes, board text, colours, font names and stock photo URLs. Images you drop on the Palette page are read by node-vibrant in the browser and never sent anywhere. The privacy page says plainly that Google may read free-tier prompts.
 - **The AI is a bonus, not a gate.** Without a provider, a board still builds from the vibe's own phrases, and the palette and contrast tools never use AI.
 - **Model output is untrusted.** Font names must look like Google Fonts names before a stylesheet is loaded; AI alt text and tags are type-checked and capped before they are saved; the brief renders as text nodes, never HTML.
 - **Prerender and hydrate, then 3D after first paint.** The public pages are rendered with React's own `renderToString` inside the built app, so phones see content before any JavaScript. The 3D board loads when the page is idle, on wide screens with a real GPU, and stops rendering off screen. The fonts that carry the largest paint are preloaded.
+
+## Two versions
+
+| Version           | Concept                                                                                                            | Why it changed                                                                                                                     |
+| :---------------- | :----------------------------------------------------------------------------------------------------------------- | :--------------------------------------------------------------------------------------------------------------------------------- |
+| v1 (Oct–Dec 2021) | React 17 Unsplash search: 30 results in a masonry grid, each opening in a new tab, and a slide-out developer panel | The API key sat in the source, images had no alt text and photographers no credit, and Unsplash's rules forbid rebuilding Unsplash |
+| **v2 (Oct 2026)** | An AI moodboard and creative-direction tool: boards, palette, fonts, brief, with stock photos as raw material      | Shipped                                                                                                                            |
 
 ## How it was made
 
@@ -189,4 +198,9 @@ e2e/                     Playwright flows with a mocked API, and axe checks
 docs/                    brief, design brief, asset list, screenshots
 ```
 
-<div align="center">Made with ♥ by EWSTUDIOS</div>
+<div align="center">
+<img src="docs/pulls-out.png" alt="The landing page's 'What Pixe pulls out' section: a six-swatch palette, an Instrument Serif and Inter Tight type card, two contrast ratios graded AAA and Fail, and the start of a creative brief" width="100%">
+
+Made with ♥ by EWSTUDIOS
+
+</div>
