@@ -80,8 +80,8 @@ export function Developer() {
           />
           <LoopVideo
             src="/media/developer-loop"
-            poster="/media/developer.webp"
-            label="Emmanuel's 3D character in a photo studio, pinning a print to a moodboard and smiling"
+            poster="/media/developer-poster.webp"
+            label="Emmanuel's 3D character pinning a print to a moodboard wall, then smiling at the camera"
             reduce={reduce}
             className="print relative aspect-[4/5] w-full rotate-[-1.5deg]"
           />

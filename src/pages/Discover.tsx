@@ -1,5 +1,6 @@
 import { useAi } from '@/ai/useAi'
 import { AiNotice } from '@/components/AiNotice'
+import { EmptyState } from '@/components/EmptyState'
 import { PhotoGrid } from '@/components/PhotoGrid'
 import { SourcesNote } from '@/components/SourcesNote'
 import { Button } from '@/components/ui/button'
@@ -248,13 +249,24 @@ export function Discover() {
             ' · Unsplash and Pexels photos are all free for commercial use'}
         </p>
         <AiNotice status={describe.status} error={describe.error} />
-        <ResponsiveGrid
-          photos={photos}
-          onAdd={(p) => void add(p)}
-          onMoreLike={(p) => void moreLike(p)}
-          onEndReached={loadMore}
-          scrollElement={scroller}
-        />
+        {!loading && photos.length === 0 ? (
+          <EmptyState
+            art="/media/empty-search"
+            title={filters.q ? 'Nothing developed.' : 'What are you looking for?'}
+          >
+            {filters.q
+              ? 'No photos matched. Try fewer words, another colour, or Expand with AI.'
+              : 'Type a subject, a mood or a whole idea. Pixe searches Unsplash, Pexels and Openverse at once.'}
+          </EmptyState>
+        ) : (
+          <ResponsiveGrid
+            photos={photos}
+            onAdd={(p) => void add(p)}
+            onMoreLike={(p) => void moreLike(p)}
+            onEndReached={loadMore}
+            scrollElement={scroller}
+          />
+        )}
         <SourcesNote className="mx-auto mt-10 max-w-xl text-center" />
       </div>
     </div>

@@ -76,6 +76,8 @@ const appPages = [
   createRoute({
     getParentRoute: () => shell,
     path: 'app',
+    // ?new=1 opens the "Describe a vibe" dialog (PWA shortcut).
+    validateSearch: (s: Record<string, unknown>): { new?: number } => (s.new ? { new: 1 } : {}),
     component: lazyRouteComponent(() => import('@/pages/Dashboard'), 'Dashboard'),
   }),
   createRoute({
