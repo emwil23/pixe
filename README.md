@@ -6,7 +6,7 @@
 
 An AI moodboard and creative-direction tool. Type a sentence like "cozy autumn café brand, film grain, warm" and Pixe lays real, credited photos from Unsplash and Openverse on an infinite board, pulls out the palette, pairs Google Fonts, checks contrast and writes a one-page creative brief.
 
-**[pixe-43t.pages.dev](https://pixe-43t.pages.dev)** · [The shared API](https://github.com/emwil23/ew-apps-api)
+**[pixe.ewstudios.workers.dev](https://pixe.ewstudios.workers.dev)** · [The shared API](https://github.com/emwil23/ew-apps-api)
 
 ![React](https://img.shields.io/badge/React-19-61DAFB?style=flat-square)
 ![TypeScript](https://img.shields.io/badge/TypeScript-strict-3178C6?style=flat-square)
