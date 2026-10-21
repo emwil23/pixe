@@ -60,10 +60,11 @@ export function Privacy() {
             Google may read and use prompts sent on the free tier to improve its products
           </strong>
           , so don't put personal or sensitive details in vibes or notes you send to the AI. You
-          sign in with an email code (Supabase) so we can count your daily calls; we store your
-          email, a user id, the date you confirmed you're 18 or over and a per-day call count.
-          Nothing else. You can delete all of it any time from Settings. This option is not offered
-          in the EEA, the UK or Switzerland, or to anyone under 18.
+          sign in with an email code or a passkey (Supabase) so we can count your daily calls; we
+          store your email, a user id, the date you confirmed you're 18 or over, a per-day call
+          count and, if you add one, your passkey's public key. Nothing else. You can delete all of
+          it any time from Settings. This option is not offered in the EEA, the UK or Switzerland,
+          or to anyone under 18.
         </li>
         <li>
           <strong>Puter</strong>, <strong>OpenRouter</strong> and <strong>your own key</strong> send
