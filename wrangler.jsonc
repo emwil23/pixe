@@ -1,0 +1,14 @@
+{
+  // Static assets on a Worker at pixe.ewstudios.workers.dev. All EW apps share the ewstudios.workers.dev
+  // subdomain so one Supabase passkey domain (RP ID) covers them. _redirects and _headers in public/ apply.
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "pixe",
+  "compatibility_date": "2026-10-01",
+  "workers_dev": true,
+  "preview_urls": false,
+  "assets": {
+    "directory": "./dist",
+    // Unknown paths get dist/404.html (the app shell) with a 404 status; the router shows the 404 page.
+    "not_found_handling": "404-page"
+  }
+}

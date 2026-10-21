@@ -1,13 +1,17 @@
 import { finishOpenRouterAuth, openRouterPending, startOpenRouterAuth } from '@/ai/openrouter'
 import { inBlockedRegion, loadPuter, providers } from '@/ai/providers'
 import {
+  addPasskey,
   confirmAdult,
+  countPasskeys,
   deleteAccount,
   googleEnabled,
   getSupabase,
   isAdult,
+  passkeysSupported,
   sendMagicLink,
   signInWithGoogle,
+  signInWithPasskey,
   signOut,
   verifyEmailCode,
 } from '@/ai/supabase'
@@ -17,7 +21,7 @@ import { cn } from '@/lib/cn'
 import { SOURCE_NAME, SOURCES } from '@/lib/photos'
 import { useSettings, type ProviderId, type Theme } from '@/stores/settings'
 import { Link } from '@tanstack/react-router'
-import { Monitor, Moon, Sun, Trash2 } from 'lucide-react'
+import { KeyRound, Monitor, Moon, Sun, Trash2 } from 'lucide-react'
 import { useEffect, useId, useState, type ReactNode } from 'react'
 import { toast } from 'sonner'
 
@@ -192,6 +196,7 @@ function ProviderSetup({ provider }: { provider: ProviderId | null }) {
   const s = useSettings()
   const [email, setEmail] = useState('')
   const [sent, setSent] = useState(false)
+  const [passkeys, setPasskeys] = useState<number | null>(null)
   const [code, setCode] = useState('')
   const [signedIn, setSignedIn] = useState(false)
   const [adult, setAdult] = useState(false)
@@ -208,6 +213,7 @@ function ProviderSetup({ provider }: { provider: ProviderId | null }) {
         void isAdult()
           .then(setAdult)
           .catch(() => setAdult(false))
+        if (session) void countPasskeys().then(setPasskeys)
       })
       unsubscribe = () => data.subscription.unsubscribe()
     })
@@ -220,6 +226,29 @@ function ProviderSetup({ provider }: { provider: ProviderId | null }) {
   if (provider === 'ew')
     return (
       <div className="border-line mt-6 max-w-lg rounded-2xl border p-4">
+        {!signedIn && passkeysSupported() && (
+          <div className="border-line mb-4 flex flex-col gap-2 border-b pb-4">
+            <Button
+              variant="primary"
+              className="self-start"
+              onClick={() =>
+                void signInWithPasskey()
+                  .then(() => toast.success('Signed in'))
+                  .catch(() =>
+                    toast.error(
+                      "No EWSTUDIOS passkey was found. Sign in by email once, then choose 'Add a passkey'.",
+                    ),
+                  )
+              }
+            >
+              <KeyRound /> I have a passkey
+            </Button>
+            <p className="text-muted text-xs">
+              Works with a passkey from any EWSTUDIOS app. New here? Sign in below first, then add a
+              passkey (Face ID, fingerprint, Windows Hello or a password manager).
+            </p>
+          </div>
+        )}
         {!signedIn && googleEnabled && (
           <Button
             className="mb-4"
@@ -310,6 +339,31 @@ function ProviderSetup({ provider }: { provider: ProviderId | null }) {
                 Sign out
               </Button>
             </div>
+            {passkeysSupported() && !passkeys && (
+              <div className="border-accent/30 bg-accent/10 flex flex-wrap items-center gap-3 rounded-xl border p-3">
+                <p className="flex-1">Skip the email next time: add a passkey.</p>
+                <Button
+                  variant="ai"
+                  size="sm"
+                  onClick={() =>
+                    void addPasskey()
+                      .then(() => {
+                        setPasskeys(1)
+                        toast.success('Passkey added')
+                      })
+                      .catch(() => toast.error('The passkey was not saved.'))
+                  }
+                >
+                  <KeyRound /> Add a passkey
+                </Button>
+              </div>
+            )}
+            {Boolean(passkeys) && (
+              <p className="text-muted">
+                {passkeys} passkey{passkeys === 1 ? '' : 's'} saved. It works in every EWSTUDIOS
+                app.
+              </p>
+            )}
           </div>
         ) : (
           <div className="flex flex-col gap-3 text-sm">
@@ -335,7 +389,7 @@ function ProviderSetup({ provider }: { provider: ProviderId | null }) {
             onClick={() => {
               if (
                 !confirm(
-                  'Delete your EW account? Your sign-in and AI usage are removed from our server for every EW app. Boards stay in this browser.',
+                  'Delete your EW account? Your sign-in, passkeys and AI usage are removed from our server for every EW app. Boards stay in this browser.',
                 )
               )
                 return
