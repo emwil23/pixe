@@ -46,7 +46,7 @@ export function SearchPanel({
             type="search"
             value={text}
             onChange={(e) => setText(e.target.value)}
-            placeholder="Search Unsplash, Pexels, Openverse"
+            placeholder="Search Unsplash and Openverse"
             maxLength={100}
             className="h-10 min-w-0 flex-1 bg-transparent text-sm outline-none"
           />

@@ -53,7 +53,7 @@ Light ("daylight"): `--bg #F2EEE6` (paper), `--surface #FFFFFF`, `--text #1A1816
 
 ## Layout
 
-- **Landing:** full-bleed hero → pinned four-beat story → "what Pixe pulls out of a board" bento (palette, fonts, brief, contrast) → sources and credits strip (Unsplash, Pexels, Openverse, credited properly) → pricing teaser → developer card → footer "Made with ♥ by EWSTUDIOS".
+- **Landing:** full-bleed hero → pinned four-beat story → "what Pixe pulls out of a board" bento (palette, fonts, brief, contrast) → sources and credits strip (Unsplash and Openverse, credited properly) → pricing teaser → developer card → footer "Made with ♥ by EWSTUDIOS".
 - **Dashboard `/app`:** boards as contact sheets: each card shows a 3×2 grid of the board's prints, its palette strip and title in serif. "New board" asks for a vibe.
 - **Board `/app/board/:id`:** canvas fills the screen; a slim top bar (title, zoom, share, export, list-view toggle); a search drawer on the right (all three sources, tabs per source); an inspector on the left for the selected item (credit, alt text, "more like this", palette). On mobile, the drawers become bottom sheets and the canvas pans with two fingers.
 - **Discover, Palette:** the same desk; Palette is a drop zone with the swatches as tall print-like strips and a contrast grid below.

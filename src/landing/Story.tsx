@@ -17,7 +17,7 @@ const BEATS = [
     key: 'curate',
     n: '02',
     title: 'Curate',
-    body: 'Pixe searches Unsplash, Pexels and Openverse at once and lays real, credited photos on an infinite board. Drag, resize, group, add notes.',
+    body: 'Pixe searches Unsplash and Openverse at once and lays real, credited photos on an infinite board. Drag, resize, group, add notes.',
     alt: 'Prints dropping onto a dark light table in a loose grid',
   },
   {

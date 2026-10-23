@@ -203,8 +203,8 @@ function Hero({ can3D }: { can3D: boolean }) {
             variants={fadeUp}
             className="text-muted mt-6 max-w-lg text-lg"
           >
-            Pixe turns a sentence into a moodboard of real, credited photos from Unsplash, Pexels
-            and Openverse, then pulls out the palette, pairs the fonts and writes the brief.
+            Pixe turns a sentence into a moodboard of real, credited photos from Unsplash and
+            Openverse, then pulls out the palette, pairs the fonts and writes the brief.
           </motion.p>
           <motion.form
             custom={3}

@@ -1,4 +1,4 @@
-import { describe, expect, it } from 'vitest'
+import { afterEach, describe, expect, it, vi } from 'vitest'
 import { creditParts, creditText, mergeResults, type Photo } from './photos'
 
 const photo = (id: string, over: Partial<Photo> = {}): Photo => ({
@@ -41,16 +41,6 @@ describe('credits', () => {
     expect(parts[3]?.href).toBe('https://unsplash.com/?utm_source=pixe&utm_medium=referral')
   })
 
-  it('credits Pexels with a link to the photo page', () => {
-    const p = photo('p1', {
-      source: 'pexels',
-      pageUrl: 'https://www.pexels.com/photo/1/',
-      author: { name: 'Bo Kim', url: 'https://www.pexels.com/@bo' },
-    })
-    expect(creditText(p)).toBe('Photo by Bo Kim on Pexels')
-    expect(creditParts(p).at(-1)?.href).toBe('https://www.pexels.com/photo/1/')
-  })
-
   it('credits Openverse with title, creator and licence', () => {
     const p = photo('o1', {
       source: 'openverse',
@@ -61,5 +51,32 @@ describe('credits', () => {
     expect(creditText(p)).toBe('“Forest” by barnyz, CC BY 2.0, via Openverse')
     expect(creditParts(p).find((c) => c.text === 'CC BY 2.0')?.href).toContain('creativecommons')
     expect(creditParts(p).find((c) => c.text === 'barnyz')?.href).toBeUndefined()
+  })
+})
+
+describe('searchSource', () => {
+  afterEach(() => {
+    vi.useRealTimers()
+    vi.unstubAllGlobals()
+    vi.unstubAllEnvs()
+  })
+
+  it('asks again while the API answers 202 (a slow source still loading)', async () => {
+    vi.stubEnv('VITE_API_URL', 'http://api.test')
+    vi.resetModules()
+    const { searchSource } = await import('./photos')
+    vi.useFakeTimers()
+    const page = { photos: [photo('o1', { source: 'openverse' })], hasMore: false }
+    const fetchMock = vi
+      .fn()
+      .mockResolvedValueOnce(
+        Response.json({ photos: [], hasMore: false, pending: true }, { status: 202 }),
+      )
+      .mockResolvedValueOnce(Response.json(page))
+    vi.stubGlobal('fetch', fetchMock)
+    const result = searchSource('openverse', { q: 'linen' })
+    await vi.advanceTimersByTimeAsync(3000)
+    expect((await result).photos).toHaveLength(1)
+    expect(fetchMock).toHaveBeenCalledTimes(2)
   })
 })

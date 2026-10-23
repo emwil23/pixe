@@ -1,10 +1,9 @@
 /** The photo shape from ew-apps-api (`src/photos.ts` there); every source is normalised to it. */
-export type Source = 'unsplash' | 'pexels' | 'openverse'
-export const SOURCES: Source[] = ['unsplash', 'pexels', 'openverse']
+export type Source = 'unsplash' | 'openverse'
+export const SOURCES: Source[] = ['unsplash', 'openverse']
 
 export const SOURCE_NAME: Record<Source, string> = {
   unsplash: 'Unsplash',
-  pexels: 'Pexels',
   openverse: 'Openverse',
 }
 
@@ -72,11 +71,17 @@ export async function searchSource(
   if (query.orientation) params.set('orientation', query.orientation)
   if (query.color) params.set('color', query.color)
   if (query.license && query.license !== 'any') params.set('license', query.license)
-  const res = await fetch(`${API_URL}/api/photos/${source}/search?${params.toString()}`, {
-    ...(signal && { signal }),
-  })
-  if (!res.ok) throw new SourceError(source, res.status === 503 || res.status === 429)
-  return (await res.json()) as PhotoPage
+  const url = `${API_URL}/api/photos/${source}/search?${params.toString()}`
+  // 202 means the API is still waiting on a slow source (Openverse can take ~40s on a new query). It keeps
+  // loading and caches the result, so asking again shortly gets it.
+  for (let attempt = 0; ; attempt++) {
+    const res = await fetch(url, { ...(signal && { signal }) })
+    if (!res.ok) throw new SourceError(source, res.status === 503 || res.status === 429)
+    if (res.status !== 202) return (await res.json()) as PhotoPage
+    if (attempt >= 3) throw new SourceError(source, true)
+    await new Promise((r) => setTimeout(r, 3000))
+    signal?.throwIfAborted()
+  }
 }
 
 /**
@@ -108,6 +113,8 @@ export async function searchAll(
   /** Called as each source answers, with everything so far, so slow sources don't hold up the rest. */
   onPartial?: (photos: Photo[]) => void,
 ): Promise<{ photos: Photo[]; hasMore: boolean; failed: Source[] }> {
+  // Settings saved by an older version may still list a source Pixe no longer uses.
+  sources = sources.filter((s) => SOURCES.includes(s))
   const lists: Photo[][] = sources.map(() => [])
   const results = await Promise.allSettled(
     sources.map((s, i) =>
@@ -138,7 +145,7 @@ export interface CreditPart {
 
 /**
  * The credit each source asks for, as text parts with links:
- * Unsplash "Photo by X on Unsplash" (UTM links), Pexels "Photo by X on Pexels",
+ * Unsplash "Photo by X on Unsplash" (UTM links) and
  * Openverse "“Title” by X, CC BY 2.0, via Openverse" (with the licence linked).
  */
 export function creditParts(p: Photo): CreditPart[] {
@@ -151,8 +158,6 @@ export function creditParts(p: Photo): CreditPart[] {
         { text: ' on ' },
         { text: 'Unsplash', href: withUtm('https://unsplash.com/') },
       ]
-    case 'pexels':
-      return [{ text: 'Photo by ' }, author, { text: ' on ' }, { text: 'Pexels', href: p.pageUrl }]
     case 'openverse':
       return [
         ...(p.alt

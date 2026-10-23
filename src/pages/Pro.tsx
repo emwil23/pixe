@@ -11,7 +11,7 @@ export const PLANS = [
 
 const FREE = [
   'Unlimited boards on your device',
-  'Search Unsplash, Pexels and Openverse at once',
+  'Search Unsplash and Openverse at once',
   'Palette extraction, harmonies, contrast checks, token export',
   'AI queries, alt text, font pairings and briefs (free, never paywalled)',
   'Board export as PNG',
