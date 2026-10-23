@@ -382,7 +382,7 @@ export function BoardPage() {
 function BuildProgress({ step }: { step: BuildStep }) {
   const lines: Record<BuildStep['step'], string> = {
     queries: 'Reading the vibe…',
-    search: 'Pulling photos from Unsplash, Pexels and Openverse…',
+    search: 'Pulling photos from Unsplash and Openverse…',
     palette: 'Extracting the palette…',
     done: 'Done.',
   }

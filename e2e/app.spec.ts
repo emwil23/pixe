@@ -5,7 +5,7 @@ import { readFileSync } from 'node:fs'
 // The app is built with VITE_API_URL=http://api.test (playwright.config.ts); every API call and photo is
 // answered here, so the tests need no keys and no network.
 const IMAGE = readFileSync(new URL('../public/media/tile-1.webp', import.meta.url))
-type Source = 'unsplash' | 'pexels' | 'openverse'
+type Source = 'unsplash' | 'openverse'
 
 const photo = (source: Source, n: number, q: string) => ({
   id: `${source}:${q}-${n}`,
@@ -110,7 +110,7 @@ test('board items move with the keyboard', async ({ page }) => {
 test('discover merges every source and adds to a board', async ({ page }) => {
   await page.goto('/app/discover?q=ceramics')
   const results = page.getByRole('list', { name: 'Search results' })
-  await expect(results.getByRole('listitem')).toHaveCount(9)
+  await expect(results.getByRole('listitem')).toHaveCount(6)
   await results
     .getByRole('button', { name: /Add to board: ceramics 1/ })
     .first()

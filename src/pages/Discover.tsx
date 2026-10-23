@@ -246,7 +246,7 @@ export function Discover() {
           {failed.length > 0 && ` · ${failed.map((s) => SOURCE_NAME[s]).join(', ')} unavailable`}
           {filters.license !== 'any' &&
             filters.license &&
-            ' · Unsplash and Pexels photos are all free for commercial use'}
+            ' · Unsplash photos are all free for commercial use'}
         </p>
         <AiNotice status={describe.status} error={describe.error} />
         {!loading && photos.length === 0 ? (
@@ -256,7 +256,7 @@ export function Discover() {
           >
             {filters.q
               ? 'No photos matched. Try fewer words, another colour, or Expand with AI.'
-              : 'Type a subject, a mood or a whole idea. Pixe searches Unsplash, Pexels and Openverse at once.'}
+              : 'Type a subject, a mood or a whole idea. Pixe searches Unsplash and Openverse at once.'}
           </EmptyState>
         ) : (
           <ResponsiveGrid

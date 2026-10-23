@@ -1,6 +1,6 @@
 # Pixe assets
 
-All art was generated on 19 October 2026 in the owner's Google Flow project **"Revamp"**: stills with Nano Banana Pro, clips with Omni 1.1 Flash. The owner's master character appears **only** on the Meet the developer page and the landing page's developer card. Nothing here is passed off as stock: the app's boards use real Unsplash, Pexels and Openverse photos, credited, and the landing page labels its art "Illustration · not a stock photo".
+All art was generated on 19 October 2026 in the owner's Google Flow project **"Revamp"**: stills with Nano Banana Pro, clips with Omni 1.1 Flash. The owner's master character appears **only** on the Meet the developer page and the landing page's developer card. Nothing here is passed off as stock: the app's boards use real Unsplash and Openverse photos, credited, and the landing page labels its art "Illustration · not a stock photo".
 
 The logo, favicon, PWA icons and UI icons are SVG drawn in code (`src/components/Logo.tsx`, `public/favicon.svg`, Lucide). The PNG icons and `og.jpg` were rendered from HTML/SVG with headless Chromium.
 

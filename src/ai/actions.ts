@@ -6,7 +6,7 @@
 
 export interface ActionInputs {
   queries: { vibe: string }
-  /** `imageUrl` must be a public stock photo (Unsplash, Pexels or an Openverse thumbnail), never an upload. */
+  /** `imageUrl` must be a public stock photo (Unsplash or an Openverse thumbnail), never an upload. */
   describe: { imageUrl: string; sourceAlt?: string }
   brief: {
     title: string

@@ -51,7 +51,7 @@ export function NewBoardDialog({
       </DialogTrigger>
       <DialogContent
         title="Describe a vibe"
-        description="Pixe searches Unsplash, Pexels and Openverse, lays the photos out and pulls the palette."
+        description="Pixe searches Unsplash and Openverse, lays the photos out and pulls the palette."
       >
         <form
           className="mt-4 flex flex-col gap-3"

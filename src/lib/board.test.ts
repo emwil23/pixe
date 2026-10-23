@@ -14,7 +14,7 @@ import type { Photo } from './photos'
 
 const photo = (id: string, width = 400, height = 600): Photo => ({
   id,
-  source: 'pexels',
+  source: 'openverse',
   width,
   height,
   color: '#222222',

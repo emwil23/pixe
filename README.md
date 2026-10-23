@@ -39,7 +39,6 @@ So the rebuild keeps the masonry feel and changes the job. Pixe is for the momen
 flowchart LR
     V([A vibe]) --> Q[AI: five searches<br/>subject · texture · light · place · detail]
     Q --> S[Unsplash · Openverse<br/>through ew-apps-api]
-    Q -.-> PXP[Pexels<br/>planned: waiting on keys]
     S --> B[(Board<br/>Dexie)]
     B --> P[Palette<br/>node-vibrant, on the device]
     B --> F[Font pairings<br/>AI, Google Fonts only]
@@ -85,7 +84,6 @@ flowchart TB
     end
     BD & DI -->|search| PH[ew-apps-api<br/>/api/photos/:source/search]
     PH --> U[Unsplash]
-    PH -.-> PX[Pexels<br/>planned: waiting on keys]
     PH --> OV[Openverse]
     AI --> P{Provider<br/>chosen in Settings}
     P -->|default| EW[ew-apps-api<br/>/api/ai/pixe/:action]
@@ -124,7 +122,7 @@ sequenceDiagram
 ```mermaid
 flowchart LR
     I[Inspector:<br/>Describe with AI] --> R[POST /api/ai/pixe/describe<br/>imageUrl]
-    R --> C{https and on<br/>images.unsplash.com,<br/>images.pexels.com or<br/>api.openverse.org?}
+    R --> C{https and on<br/>images.unsplash.com or<br/>api.openverse.org?}
     C -- no --> X[400]
     C -- yes --> F[fetch a 512px copy<br/>no redirects, ≤ 4 MB]
     F -- fails --> X2[422, no quota used]
@@ -134,11 +132,10 @@ flowchart LR
 
 ## Decisions worth explaining
 
-- **Pexels is built but switched off.** The API, filters and credit line for Pexels are done and tested, but Pexels has paused new API keys. Without a key the API answers 503 for that source and Pixe searches the others; it switches on when a key goes into `ew-apps-api`'s `.env`, with no code change.
-- **Not an Unsplash clone.** Unsplash's guidelines forbid replicating its core experience, so search lives inside a board, not on a home page of results. Pixe uses the image URLs each API returns (no re-hosting), reports downloads to Unsplash when a board is exported, links photographers with UTM tags, and shows each Openverse licence (a prominent Pexels link is ready for when Pexels is on). Openverse doesn't check licences, so the terms say to check before use.
+- **Not an Unsplash clone.** Unsplash's guidelines forbid replicating its core experience, so search lives inside a board, not on a home page of results. Pixe uses the image URLs each API returns (no re-hosting), reports downloads to Unsplash when a board is exported, links photographers with UTM tags, and shows each Openverse licence. Openverse doesn't check licences, so the terms say to check before use.
 - **The keys stay on the server.** The old app shipped its Unsplash key to every browser. Now `ew-apps-api` holds the keys, turns each source's JSON into one shape, and caches each search for an hour: anonymous Openverse allows 200 calls a day and Unsplash's demo tier 50 an hour, shared by everyone.
 - **A DOM canvas, not a `<canvas>`.** The brief allowed tldraw (its licence needs a paid key for a commercial app with Pro) or react-konva. Konva draws pixels a screen reader can't see. Here every print is a real element in one transformed layer: it can be tabbed to, has alt text, moves with the arrow keys, and the board has a list view too. Pointer drag, a resize handle, pan, Ctrl+scroll and pinch zoom took about 350 lines.
-- **Slow sources don't hold the page.** Openverse can take 40 seconds on a query it hasn't cached. Results merge in as each source answers, and the board build leaves out any source still searching after 12 seconds.
+- **Slow sources don't hold the page, or break it.** Openverse can take 40 seconds on a query it hasn't cached, and Heroku cuts a request off at 30. So the API waits 20 seconds, then answers 202 "pending" while the Openverse call carries on and fills the cache; Pixe asks again a few seconds later and gets the result. Unsplash results show straight away, and the board build leaves out any source still loading after 12 seconds.
 - **The AI sees only words and public stock photos.** Vibes, board text, colours, font names and stock photo URLs. Images you drop on the Palette page are read by node-vibrant in the browser and never sent anywhere. The privacy page says plainly that Google may read free-tier prompts.
 - **One sign-in for every EWSTUDIOS app.** All the apps share one Supabase account and live under `ewstudios.workers.dev` as Cloudflare Workers serving static files. Supabase allows a single passkey domain per project, so a shared parent domain means a passkey saved in one app signs you in to the others. The emailed 6-digit code always works as the fallback. Sign-in exists only for the free AI server's daily quota; your boards stay in the browser.
 - **The AI is a bonus, not a gate.** Without a provider, a board still builds from the vibe's own phrases, and the palette and contrast tools never use AI.
@@ -174,7 +171,7 @@ npm test
 npm run e2e
 ```
 
-Node 24. Copy `.env.example` to `.env` and point `VITE_API_URL` at a running [ew-apps-api](https://github.com/emwil23/ew-apps-api) (with `UNSPLASH_ACCESS_KEY` and `PEXELS_API_KEY` in its own `.env`; Openverse needs no key). Pexels has paused new API keys for now; a source without a key reports itself unavailable and Pixe searches the others. Without an API the app still opens and keeps your boards, but can't search. `npm run build` also prerenders the public pages, so it needs Playwright's Chromium (`npx playwright install chromium`). `npm run e2e` builds against a made-up API host and answers every search and image itself, so it needs no keys or network; it runs the flows and axe on every page in both themes. CI adds lint, typecheck and Lighthouse (≥ 0.95 in every category). Deploy with `VITE_API_URL=https://ewandtina-d9aa187632ca.herokuapp.com npm run build && npx wrangler deploy` (config in `wrangler.jsonc`).
+Node 24. Copy `.env.example` to `.env` and point `VITE_API_URL` at a running [ew-apps-api](https://github.com/emwil23/ew-apps-api) (with `UNSPLASH_ACCESS_KEY` in its own `.env`; Openverse needs no key). Without an API the app still opens and keeps your boards, but can't search. `npm run build` also prerenders the public pages, so it needs Playwright's Chromium (`npx playwright install chromium`). `npm run e2e` builds against a made-up API host and answers every search and image itself, so it needs no keys or network; it runs the flows and axe on every page in both themes. CI adds lint, typecheck and Lighthouse (≥ 0.95 in every category). Deploy with `VITE_API_URL=https://ewandtina-d9aa187632ca.herokuapp.com npm run build && npx wrangler deploy` (config in `wrangler.jsonc`).
 
 `node scripts/screenshots.mjs` retakes the pictures in `docs/` with real searches, against a build served on an origin the API allows.
 

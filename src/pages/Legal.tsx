@@ -35,11 +35,10 @@ export function Privacy() {
 
       <h2>Photo search</h2>
       <p>
-        Searches go through our server (ew-apps-api) to Unsplash, Pexels and Openverse, so our API
-        keys stay private. Each service sees the search words, not who you are. The photos then load
-        straight from that service's servers, which see your IP address like any website would. When
-        you export a board, we tell Unsplash which of its photos were downloaded, as its rules
-        require.
+        Searches go through our server (ew-apps-api) to Unsplash and Openverse, so our API keys stay
+        private. Each service sees the search words, not who you are. The photos then load straight
+        from that service's servers, which see your IP address like any website would. When you
+        export a board, we tell Unsplash which of its photos were downloaded, as its rules require.
       </p>
       <p>
         Font cards load their fonts from Google Fonts (fonts.googleapis.com), which sees your IP
@@ -50,8 +49,8 @@ export function Privacy() {
       <p>
         You choose the provider in Settings. The AI only ever sees what you typed as a vibe or
         search, the text on your board (titles, notes, alt text, tags, colours, font names) and{' '}
-        <strong>public stock photos</strong> from Unsplash, Pexels and Openverse. Images you upload
-        are never sent to any AI.
+        <strong>public stock photos</strong> from Unsplash and Openverse. Images you upload are
+        never sent to any AI.
       </p>
       <ul>
         <li>
@@ -101,13 +100,9 @@ export function Terms() {
       </p>
       <h2>Photos and licences</h2>
       <p>
-        Pixe doesn't own or host the photos. Unsplash and Pexels photos are under the{' '}
+        Pixe doesn't own or host the photos. Unsplash photos are under the{' '}
         <a className="text-accent-text underline" href="https://unsplash.com/license">
           Unsplash licence
-        </a>{' '}
-        and the{' '}
-        <a className="text-accent-text underline" href="https://www.pexels.com/license/">
-          Pexels licence
         </a>
         . Openverse photos carry the Creative Commons licence shown on each one, which may forbid
         commercial use or changes. Openverse doesn't check licences, so check the photo's own page

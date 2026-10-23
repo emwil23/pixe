@@ -15,7 +15,7 @@ export interface Settings {
   ownBaseUrl: string
   ownModel: string
   /** Photo sources searched by default. */
-  sources: ('unsplash' | 'pexels' | 'openverse')[]
+  sources: ('unsplash' | 'openverse')[]
   set: (patch: Partial<Omit<Settings, 'set'>>) => void
 }
 
@@ -29,7 +29,7 @@ export const useSettings = create<Settings>()(
       ownKey: null,
       ownBaseUrl: 'https://api.openai.com/v1',
       ownModel: 'gpt-5-mini',
-      sources: ['unsplash', 'pexels', 'openverse'],
+      sources: ['unsplash', 'openverse'],
       set: (patch) => set(patch),
     }),
     { name: 'pixe-settings' },
