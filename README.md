@@ -6,7 +6,7 @@
 
 An AI moodboard and creative-direction tool. Type a sentence like "cozy autumn café brand, film grain, warm" and Pixe lays real, credited photos from Unsplash and Openverse on an infinite board, pulls out the palette, pairs Google Fonts, checks contrast and writes a one-page creative brief.
 
-**[pixe.ewstudios.workers.dev](https://pixe.ewstudios.workers.dev)** · [The shared API](https://github.com/emwil23/ew-apps-api)
+**[pixe.ewstudios.workers.dev](https://pixe.ewstudios.workers.dev)**
 
 ![React](https://img.shields.io/badge/React-19-61DAFB?style=flat-square)
 ![TypeScript](https://img.shields.io/badge/TypeScript-strict-3178C6?style=flat-square)
@@ -171,7 +171,7 @@ npm test
 npm run e2e
 ```
 
-Node 24. Copy `.env.example` to `.env` and point `VITE_API_URL` at a running [ew-apps-api](https://github.com/emwil23/ew-apps-api) (with `UNSPLASH_ACCESS_KEY` in its own `.env`; Openverse needs no key). Without an API the app still opens and keeps your boards, but can't search. `npm run build` also prerenders the public pages, so it needs Playwright's Chromium (`npx playwright install chromium`). `npm run e2e` builds against a made-up API host and answers every search and image itself, so it needs no keys or network; it runs the flows and axe on every page in both themes. CI adds lint, typecheck and Lighthouse (≥ 0.95 in every category). Deploy with `VITE_API_URL=https://ewandtina-d9aa187632ca.herokuapp.com npm run build && npx wrangler deploy` (config in `wrangler.jsonc`).
+Node 24. Copy `.env.example` to `.env` and point `VITE_API_URL` at a running `ew-apps-api` (the shared backend) (with `UNSPLASH_ACCESS_KEY` in its own `.env`; Openverse needs no key). Without an API the app still opens and keeps your boards, but can't search. `npm run build` also prerenders the public pages, so it needs Playwright's Chromium (`npx playwright install chromium`). `npm run e2e` builds against a made-up API host and answers every search and image itself, so it needs no keys or network; it runs the flows and axe on every page in both themes. CI adds lint, typecheck and Lighthouse (≥ 0.95 in every category). Deploy with `VITE_API_URL=https://ewandtina-d9aa187632ca.herokuapp.com npm run build && npx wrangler deploy` (config in `wrangler.jsonc`).
 
 `node scripts/screenshots.mjs` retakes the pictures in `docs/` with real searches, against a build served on an origin the API allows.
 
